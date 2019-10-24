@@ -65,5 +65,8 @@ dependencies {
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
 
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
 
 }
