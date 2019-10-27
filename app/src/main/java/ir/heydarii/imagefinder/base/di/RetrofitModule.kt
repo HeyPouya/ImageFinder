@@ -2,9 +2,11 @@ package ir.heydarii.imagefinder.base.di
 
 import dagger.Module
 import dagger.Provides
+import ir.heydarii.imagefinder.retrofit.BasicAuthInterceptor
 import ir.heydarii.imagefinder.retrofit.RetrofitMainInterface
 import ir.heydarii.imagefinder.retrofit.RetrofitServiceGenerator
 import ir.heydarii.imagefinder.utils.Consts
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,12 +26,13 @@ class RetrofitModule {
      */
     @Singleton
     @Provides
-    fun provideOkHttp(interceptor: HttpLoggingInterceptor): OkHttpClient.Builder {
+    fun provideOkHttp(interceptor: HttpLoggingInterceptor, authInterceptor: Interceptor): OkHttpClient.Builder {
         val httpClient = OkHttpClient().newBuilder()
         httpClient.connectTimeout(15, TimeUnit.SECONDS)
         httpClient.readTimeout(15, TimeUnit.SECONDS)
         httpClient.callTimeout(15, TimeUnit.SECONDS)
         httpClient.addInterceptor(interceptor)
+        httpClient.addInterceptor(authInterceptor)
         return httpClient
     }
 
@@ -78,13 +81,21 @@ class RetrofitModule {
     @Singleton
     @Provides
     fun provideRetrofit(
-        converterFactory: GsonConverterFactory,
-        httpClient: OkHttpClient.Builder,
-        @Named("baseURL")
-        baseURL: String
+            converterFactory: GsonConverterFactory,
+            httpClient: OkHttpClient.Builder,
+            @Named("baseURL")
+            baseURL: String
     ): Retrofit {
         return RetrofitServiceGenerator(converterFactory, httpClient, baseURL).getClient()
     }
 
+    /**
+     * Provides BasicAuth for retrofit
+     */
+    @Singleton
+    @Provides
+    fun provideAuthInterceptor(): Interceptor {
+        return BasicAuthInterceptor(Consts.USER, Consts.PASS)
+    }
 
 }

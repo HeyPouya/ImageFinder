@@ -13,18 +13,18 @@ class SearchImageViewModel(private val repository: Repository) : ViewModel() {
     private val disposable = CompositeDisposable()
     private val searchResponse = MutableLiveData<ImageSearchResponseModel>()
 
-    fun searchImage(query: String, page: Int): LiveData<ImageSearchResponseModel> {
+    fun searchImage(query: String) {
         disposable.add(
-                repository.searchImage(query, page)
+                repository.searchImage(query, 1)
                         .subscribe({
                             searchResponse.value = it
                         }, {
                             Logger.d(it)
                             // TODO : Add some error handling
                         }))
-        return searchResponse
-
     }
+
+    fun searchResponseData(): LiveData<ImageSearchResponseModel> = searchResponse
 
     override fun onCleared() {
         super.onCleared()

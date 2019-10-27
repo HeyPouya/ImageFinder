@@ -10,9 +10,9 @@ import javax.inject.Inject
  * This class makes the Retrofit client
  */
 class RetrofitServiceGenerator @Inject constructor(
-    private val converter: GsonConverterFactory,
-    private val httpClient: OkHttpClient.Builder,
-    private val baseURL: String
+        private val converter: GsonConverterFactory,
+        private val httpClient: OkHttpClient.Builder,
+        private val baseURL: String
 ) {
 
     /**
