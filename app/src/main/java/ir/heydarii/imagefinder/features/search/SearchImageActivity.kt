@@ -15,5 +15,9 @@ class SearchImageActivity : BaseActivity() {
         setContentView(R.layout.activity_image_search)
 
         viewModel = ViewModelProvider(this, ((application) as BaseApplication).provider).get(SearchImageViewModel::class.java)
+
+
+
+
     }
 }
