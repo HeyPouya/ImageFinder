@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".base.BaseActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".features.search.SearchImageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
