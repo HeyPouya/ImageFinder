@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_image_search.*
 
 class SearchImageActivity : BaseActivity() {
 
-    lateinit var viewModel: SearchImageViewModel
+    private lateinit var viewModel: SearchImageViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
