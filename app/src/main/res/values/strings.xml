@@ -2,4 +2,5 @@
     <string name="app_name">ImageFinder</string>
     <string name="search_any_image">Search any image</string>
     <string name="search_icon">Search icon</string>
+    <string name="image">Image</string>
 </resources>
