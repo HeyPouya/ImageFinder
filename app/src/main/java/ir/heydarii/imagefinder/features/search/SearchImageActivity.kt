@@ -1,6 +1,7 @@
 package ir.heydarii.imagefinder.features.search
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -24,10 +25,12 @@ class SearchImageActivity : BaseActivity() {
         setUpRecycler()
         viewModel.searchResponseData().observe(this, Observer {
             showImages(it.data)
+            progress.visibility = View.GONE
         })
 
         imgSearch.setOnClickListener {
             viewModel.searchImage(edtSearch.text.toString())
+            progress.visibility = View.VISIBLE
         }
 
 
