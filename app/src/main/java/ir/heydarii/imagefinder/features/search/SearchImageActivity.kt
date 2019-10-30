@@ -9,22 +9,26 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ir.heydarii.imagefinder.R
 import ir.heydarii.imagefinder.base.BaseActivity
 import ir.heydarii.imagefinder.base.BaseApplication
-import ir.heydarii.imagefinder.pojos.Data
 import kotlinx.android.synthetic.main.activity_image_search.*
 
 class SearchImageActivity : BaseActivity() {
 
     private lateinit var viewModel: SearchImageViewModel
+    private lateinit var adapter: SearchImageAdapter
+    private val listHolder = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_search)
 
-        viewModel = ViewModelProvider(this, ((application) as BaseApplication).provider).get(SearchImageViewModel::class.java)
+        viewModel = ViewModelProvider(this, ((application) as BaseApplication).provider).get(
+            SearchImageViewModel::class.java
+        )
 
         setUpRecycler()
+
         viewModel.searchResponseData().observe(this, Observer {
-            showImages(it.data)
+            showImages(it)
             progress.visibility = View.GONE
         })
 
@@ -37,12 +41,14 @@ class SearchImageActivity : BaseActivity() {
     }
 
     private fun setUpRecycler() {
-        recycler.adapter = SearchImageAdapter(emptyList())
+        adapter = SearchImageAdapter(listHolder)
+        recycler.adapter = adapter
         recycler.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
     }
 
-    private fun showImages(images: List<Data>) {
-        recycler.adapter = SearchImageAdapter(images)
-        recycler.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+    private fun showImages(images: List<String>) {
+        listHolder.clear()
+        listHolder.addAll(images)
+        adapter.notifyDataSetChanged()
     }
 }
