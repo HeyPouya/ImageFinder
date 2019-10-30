@@ -8,8 +8,11 @@ import com.squareup.picasso.Picasso
 import ir.heydarii.imagefinder.R
 import kotlinx.android.synthetic.main.image_item.view.*
 
+/**
+ * Adapter that lists images in search view
+ */
 class SearchImageAdapter(private val list: List<String>) :
-    RecyclerView.Adapter<SearchImageAdapter.SearchImageViewHolder>() {
+        RecyclerView.Adapter<SearchImageAdapter.SearchImageViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchImageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
         return SearchImageViewHolder(view)
@@ -19,9 +22,12 @@ class SearchImageAdapter(private val list: List<String>) :
 
 
     override fun onBindViewHolder(holder: SearchImageViewHolder, position: Int) =
-        holder.bind(list[position])
+            holder.bind(list[position])
 
 
+    /**
+     * ViewHolder for search view adapter
+     */
     class SearchImageViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(image: String) {
             Picasso.get().load(image).into(view.imgItem)

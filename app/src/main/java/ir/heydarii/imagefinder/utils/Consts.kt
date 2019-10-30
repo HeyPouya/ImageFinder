@@ -1,5 +1,8 @@
 package ir.heydarii.imagefinder.utils
 
+/**
+ * This class is used to provide consts in the project
+ */
 class Consts {
     companion object {
         const val BASE_URL = "https://api.shutterstock.com/v2/"

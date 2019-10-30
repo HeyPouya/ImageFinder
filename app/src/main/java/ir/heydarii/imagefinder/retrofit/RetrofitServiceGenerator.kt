@@ -20,10 +20,10 @@ class RetrofitServiceGenerator @Inject constructor(
      */
     fun getClient(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseURL)
-            .addConverterFactory(converter)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(httpClient.build())
-            .build()
+                .baseUrl(baseURL)
+                .addConverterFactory(converter)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(httpClient.build())
+                .build()
     }
 }

@@ -10,11 +10,11 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <ImageView
-        android:minHeight="100dp"
         android:id="@+id/imgItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/imgPlaceholderColor"
         android:contentDescription="@string/image"
-        android:scaleType="centerCrop"
-        android:background="@color/imgPlaceholderColor" />
+        android:minHeight="100dp"
+        android:scaleType="centerCrop" />
 </androidx.cardview.widget.CardView>

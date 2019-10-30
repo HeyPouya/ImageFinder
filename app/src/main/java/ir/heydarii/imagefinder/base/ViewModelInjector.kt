@@ -7,6 +7,9 @@ import ir.heydarii.imagefinder.repository.Repository
 import ir.heydarii.imagefinder.repository.network.NetworkRepository
 import ir.heydarii.imagefinder.retrofit.RetrofitMainInterface
 
+/**
+ * We use ViewModelInjector to provide data repository for viewModels
+ */
 class ViewModelInjector(mainInterface: RetrofitMainInterface) :
         ViewModelProvider.Factory {
 
@@ -14,7 +17,9 @@ class ViewModelInjector(mainInterface: RetrofitMainInterface) :
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             when {
-                modelClass.isAssignableFrom(SearchImageViewModel::class.java) -> SearchImageViewModel(repository) as T
+                modelClass.isAssignableFrom(SearchImageViewModel::class.java) -> SearchImageViewModel(
+                        repository
+                ) as T
                 else -> throw IllegalArgumentException("Not provided ${modelClass.name} in ViewModelProvider")
             }
 }
