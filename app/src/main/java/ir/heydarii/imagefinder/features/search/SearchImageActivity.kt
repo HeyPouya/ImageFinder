@@ -33,22 +33,39 @@ class SearchImageActivity : BaseActivity() {
         })
 
         imgSearch.setOnClickListener {
-            viewModel.searchImage(edtSearch.text.toString())
-            progress.visibility = View.VISIBLE
+            fetchData()
         }
-
 
     }
 
     private fun setUpRecycler() {
         adapter = SearchImageAdapter(listHolder)
         recycler.adapter = adapter
-        recycler.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        val layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        recycler.layoutManager = layoutManager
+
+        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (layoutManager.itemCount > 0 && layoutManager.findLastVisibleItemPositions(null).asList().any { it == layoutManager.itemCount || it == layoutManager.itemCount - 1 }) {
+                    fetchData()
+                }
+
+            }
+        })
     }
 
     private fun showImages(images: List<String>) {
         listHolder.clear()
         listHolder.addAll(images)
         adapter.notifyDataSetChanged()
+    }
+
+
+    fun fetchData() {
+        viewModel.searchImage(edtSearch.text.toString())
+        progress.visibility = View.VISIBLE
+
     }
 }
