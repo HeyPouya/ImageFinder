@@ -3,4 +3,6 @@
     <string name="search_any_image">Search any image</string>
     <string name="search_icon">Search icon</string>
     <string name="image">Image</string>
+    <string name="try_again">Try Again</string>
+    <string name="please_try_again">Please try again</string>
 </resources>

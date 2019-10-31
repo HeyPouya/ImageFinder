@@ -6,6 +6,7 @@ import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.imagefinder.base.BaseViewModel
 import ir.heydarii.imagefinder.repository.Repository
+import ir.heydarii.imagefinder.utils.DataErrors
 
 /**
  * ViewModel for search image view
@@ -53,7 +54,7 @@ class SearchImageViewModel(private val repository: Repository) : BaseViewModel()
                             Logger.d(it)
                             if (page > 0)
                                 page--
-                            // TODO : Add some error handling
+                            errorData.value = DataErrors.FETCHING_DATA_ERROR
                         })
         )
     }

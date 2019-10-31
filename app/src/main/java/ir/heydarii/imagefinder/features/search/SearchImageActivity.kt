@@ -27,12 +27,20 @@ class SearchImageActivity : BaseActivity() {
 
 
         //instantiating or getting the viewModel reference
-        viewModel = ViewModelProvider(this, ((application) as BaseApplication).provider).get(SearchImageViewModel::class.java)
+        viewModel = ViewModelProvider(this, ((application) as BaseApplication).provider).get(
+            SearchImageViewModel::class.java
+        )
 
         //setting up the adapter and layout manager of the recycler
         setUpRecycler()
 
-        //observing viewModel for emmited images
+        //Handling errors if anything happened while fetching data
+        viewModel.errorObservable().observe(this, Observer {
+            showTryAgain(root, getString(R.string.please_try_again)) {
+                fetchData()
+            }
+        })
+        //observing viewModel for emitted images
         viewModel.searchResponseData().observe(this, Observer {
             showImages(it)
             progress.visibility = View.GONE
