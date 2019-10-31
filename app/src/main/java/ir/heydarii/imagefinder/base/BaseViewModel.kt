@@ -10,10 +10,10 @@ import ir.heydarii.imagefinder.utils.DataErrors
  */
 open class BaseViewModel : ViewModel() {
 
-    protected val errorData = MutableLiveData<DataErrors>
+    protected val errorData = MutableLiveData<DataErrors>()
 
     /**
      * A function for views to subscribe on it and observ errors
      */
-    fun errorObservable: LiveData<DataErrors> = errorData
+    fun errorObservable(): LiveData<DataErrors> = errorData
 }
