@@ -36,6 +36,7 @@ Technologies that have been used in this projects are :
 *   LiveData
 *   Unit Test
 
+I will add more tests in the future as I didnt have enough time to add integrated and end-to-end test.
 
 ### API
 
