@@ -17,9 +17,12 @@ class SearchImageViewModel(private val repository: Repository) : BaseViewModel()
 
     private val disposable = CompositeDisposable()
     private val searchResponse = MutableLiveData<List<String>>()
-    @VisibleForTesting val imageUrlList = arrayListOf<String>()
-    @VisibleForTesting var lastSearchTerm = ""
-    @VisibleForTesting var page = 1
+    @VisibleForTesting
+    val imageUrlList = arrayListOf<String>()
+    @VisibleForTesting
+    var lastSearchTerm = ""
+    @VisibleForTesting
+    var page = 1
     private var isLoading = false
 
 
@@ -49,7 +52,11 @@ class SearchImageViewModel(private val repository: Repository) : BaseViewModel()
                         .subscribe({
                             isLoading = false
                             imageUrlList.addAll(it)
-                            searchResponse.value = imageUrlList
+
+                            if (imageUrlList.isEmpty())
+                                errorData.value = DataErrors.EMPTY_LIST_ERROR
+                            else
+                                searchResponse.value = imageUrlList
                         }, {
                             isLoading = false
                             Logger.d(it)
@@ -61,7 +68,7 @@ class SearchImageViewModel(private val repository: Repository) : BaseViewModel()
     }
 
     @VisibleForTesting
-     fun checkToResetOrFetchNextPage(query: String) {
+    fun checkToResetOrFetchNextPage(query: String) {
         if (query == lastSearchTerm)
             page++
         else

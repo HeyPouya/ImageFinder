@@ -3,6 +3,7 @@ package ir.heydarii.imagefinder.features.search
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ir.heydarii.imagefinder.R
 import ir.heydarii.imagefinder.base.BaseActivity
 import ir.heydarii.imagefinder.base.BaseApplication
+import ir.heydarii.imagefinder.utils.DataErrors.EMPTY_LIST_ERROR
+import ir.heydarii.imagefinder.utils.DataErrors.FETCHING_DATA_ERROR
 import kotlinx.android.synthetic.main.activity_image_search.*
 
 /**
@@ -28,7 +31,7 @@ class SearchImageActivity : BaseActivity() {
 
         //instantiating or getting the viewModel reference
         viewModel = ViewModelProvider(this, ((application) as BaseApplication).provider).get(
-            SearchImageViewModel::class.java
+                SearchImageViewModel::class.java
         )
 
         //setting up the adapter and layout manager of the recycler
@@ -36,10 +39,13 @@ class SearchImageActivity : BaseActivity() {
 
         //Handling errors if anything happened while fetching data
         viewModel.errorObservable().observe(this, Observer {
-            showTryAgain(root, getString(R.string.please_try_again)) {
-                fetchData()
+            when (it) {
+                FETCHING_DATA_ERROR -> showTryAgain(root, getString(R.string.please_try_again)) { fetchData() }
+                EMPTY_LIST_ERROR -> showEmptyState()
+                else -> IllegalArgumentException("Not provided error ${it.name} in ${SearchImageActivity::class.java.name}")
             }
         })
+
         //observing viewModel for emitted images
         viewModel.searchResponseData().observe(this, Observer {
             showImages(it)
@@ -57,6 +63,11 @@ class SearchImageActivity : BaseActivity() {
             true
         }
 
+    }
+
+    private fun showEmptyState() {
+        progress.visibility = View.GONE
+        Toast.makeText(this, "No result found for \"${edtSearch.text.toString()}\"", Toast.LENGTH_LONG).show()
     }
 
     private fun setUpRecycler() {
