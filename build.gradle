@@ -5,6 +5,11 @@ ext {
     retrofit_version = '2.6.2'
     dagger_version = '2.25.2'
     lifecycle_version = "2.1.0"
+    mockito_version = '2.24.5'
+    mockito_kotlin_version = '2.1.0'
+    archTestingVersion = '2.1.0'
+    robolectricVersion = '4.3.1'
+
 }
 
 buildscript {

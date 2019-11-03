@@ -1,5 +1,6 @@
 package ir.heydarii.imagefinder.features.search
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
@@ -16,9 +17,9 @@ class SearchImageViewModel(private val repository: Repository) : BaseViewModel()
 
     private val disposable = CompositeDisposable()
     private val searchResponse = MutableLiveData<List<String>>()
-    private val imageUrlList = arrayListOf<String>()
-    private var lastSearchTerm = ""
-    private var page = 1
+    @VisibleForTesting val imageUrlList = arrayListOf<String>()
+    @VisibleForTesting var lastSearchTerm = ""
+    @VisibleForTesting var page = 1
     private var isLoading = false
 
 
@@ -59,14 +60,16 @@ class SearchImageViewModel(private val repository: Repository) : BaseViewModel()
         )
     }
 
-    private fun checkToResetOrFetchNextPage(query: String) {
+    @VisibleForTesting
+     fun checkToResetOrFetchNextPage(query: String) {
         if (query == lastSearchTerm)
             page++
         else
             resetValues(query)
     }
 
-    private fun resetValues(query: String) {
+    @VisibleForTesting
+    fun resetValues(query: String) {
         page = 1
         imageUrlList.clear()
         lastSearchTerm = query

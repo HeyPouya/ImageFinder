@@ -13,7 +13,7 @@ open class BaseViewModel : ViewModel() {
     protected val errorData = MutableLiveData<DataErrors>()
 
     /**
-     * A function for views to subscribe on it and observ errors
+     * A function for views to subscribe on it and observe errors
      */
     fun errorObservable(): LiveData<DataErrors> = errorData
 }
