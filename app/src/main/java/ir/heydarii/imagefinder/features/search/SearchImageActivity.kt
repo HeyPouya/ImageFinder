@@ -67,7 +67,7 @@ class SearchImageActivity : BaseActivity() {
 
     private fun showEmptyState() {
         progress.visibility = View.GONE
-        Toast.makeText(this, "No result found for \"${edtSearch.text.toString()}\"", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.no_result_found, edtSearch.text.toString()), Toast.LENGTH_LONG).show()
     }
 
     private fun setUpRecycler() {
