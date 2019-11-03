@@ -16,10 +16,10 @@ class ViewModelInjector(mainInterface: RetrofitMainInterface) :
     private val repository = Repository(NetworkRepository(mainInterface))
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-            when {
-                modelClass.isAssignableFrom(SearchImageViewModel::class.java) -> SearchImageViewModel(
-                        repository
-                ) as T
-                else -> throw IllegalArgumentException("Not provided ${modelClass.name} in ViewModelProvider")
+            with(modelClass) {
+                when {
+                    isAssignableFrom(SearchImageViewModel::class.java) -> SearchImageViewModel(repository) as T
+                    else -> throw IllegalArgumentException("Not provided ${modelClass.name} in ViewModelProvider")
+                }
             }
 }

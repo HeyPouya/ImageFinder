@@ -24,7 +24,9 @@ import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-
+/**
+ * Unit tests to test ViewModel
+ */
 @RunWith(MockitoJUnitRunner::class)
 class SearchViewModelTestClass {
 
@@ -49,6 +51,9 @@ class SearchViewModelTestClass {
         return ImageSearchResponseModel(arrayListOf(data), 1, 20, query, 100)
     }
 
+    /**
+     * Handles LiveData
+     */
     @Before
     fun init() {
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> Schedulers.trampoline() }
